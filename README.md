@@ -20,7 +20,7 @@ This project runs on Google App Engine and leverages the [Stripes framework](htt
 > The SoyToJsSrcCompiler.jar being outside of Maven official repository, you'll need to add it manually to compile, like this:
 
 ```shell
-mvn install:install-file -DgroupId=com.google.template.soy -DartifactId=soy-js-compiler -Dversion=1.0-SNAPSHOT -Dfile=SoyToJsSrcCompiler.jar
+mvn install:install-file -DgroupId=com.google.template.soy -DartifactId=soy-js-compiler -Dversion=1.0-SNAPSHOT -Dpackage=jar -Dfile=SoyToJsSrcCompiler.jar
 ```
 
 I've used eclipse Luna with the [Google Plugin](https://cloud.google.com/appengine/docs/java/tools/eclipse#Running_the_Project) without any major issue.
