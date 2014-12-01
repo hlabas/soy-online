@@ -1,6 +1,7 @@
 .project
 .classpath
 .settings/
+eclipse-launch-profiles
 target/
 pom.xml.tag
 pom.xml.releaseBackup
