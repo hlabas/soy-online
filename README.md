@@ -7,7 +7,7 @@ Wraps the [Soy compiler](https://developers.google.com/closure/templates/docs/he
 Usage
 ------
 
-Type in your Soy code in the input source field, click "Compile" and that's it!
+Type in your Soy code in the input source editor, click "Compile" and that's it!
 
 Running the source code
 ------
@@ -24,3 +24,8 @@ mvn install:install-file -DgroupId=com.google.template.soy -DartifactId=soy-js-c
 ```
 
 I've used eclipse Luna with the [Google Plugin](https://cloud.google.com/appengine/docs/java/tools/eclipse#Running_the_Project) without any major issue.
+
+Credits
+------
+
+This project uses the brilliant [CodeMirror](https://codemirror.net/) as a source editor.

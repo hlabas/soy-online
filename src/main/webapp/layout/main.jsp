@@ -33,7 +33,7 @@
 	  /* Set the fixed height of the footer here */
 	  height: 60px;
 	  background-color: #f5f5f5;
-	  padding: 20px;
+	  padding: 10px 10px 10px 30px;
 	}
 	
 	/* Custom page CSS
@@ -47,32 +47,68 @@
 	.container .text-muted {
 	  margin: 20px 0;
 	}
+	.page-header {
+    margin: 70px 0 0 0;
+    border: none;
+	}
 	</style>
 	<s:layout-component name="css" />
 </head>
 <body>
-  <a href="https://github.com/hlabas/soy-online.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-
+  <nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Soy online</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#aboutModal" data-toggle="modal">About</a></li>
+        </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a class="label-danger" href="https://github.com/hlabas/soy-online.git" style="color: white;">Fork on Github</a></li>
+	      </ul>
+      </div>
+    </div>
+  </nav>
+    
   <header class="page-header">
     <div class="container">
       <s:layout-component name="header" />
     </div>
   </header>
-  <div class="container">
-    <s:layout-component name="body" />
-  </div>
+  
+  <s:layout-component name="body" />
 
   <footer class="footer">
-    <div class="container">
-      <cite class="text-muted">Author: Hervé Labas</cite>
-    </div>
+    <s:layout-component name="footer" />
   </footer>
+  
+  <div class="modal fade" id="aboutModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">About Soy Online</h4>
+        </div>
+        <div class="modal-body">
+	        <p>Version: 1.1</p> 
+	        <p>Author: <a href="https://twitter.com/hervelabas" target="_blank">Hervé Labas</a></p> 
+	        <p>Editor: <a href="https://codemirror.net/" target="_blank">CodeMirror</a></p>
+	        <p>Compiler: <a href="https://developers.google.com/closure/templates/docs/helloworld_js" target="_blank">Closure templates</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
   <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script
     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script>
   var BASE_PATH = '${ctx}/action/';
+  $(function () {
+    $('[data-toggle="popover"]').popover();
+  });
   </script>
   <s:layout-component name="jsSources" />
 </body>

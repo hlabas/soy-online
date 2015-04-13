@@ -1,7 +1,12 @@
 /**
- * Compilation result
+ * Compilation result.
  */
 var compiled = null;
+
+/**
+ * CodeMirror instance.
+ */
+var editor = null;
 
 /**
  * Compiles and provides with status and error message.
@@ -26,13 +31,12 @@ function download(e) {
  * @param download Flag to request downloading the result.
  */
 function requestCompilation(download) {
-  $('#compilationStatus').removeClass('glyphicon-remove-circle failure glyphicon-ok-sign success');
-  $('#compilationStatus').addClass('glyphicon-refresh');
+  $('#compileSuccess').hide();
+  $('#compileFailure').hide();
   $.post(BASE_PATH + 'compile/verify', {
     inputSource: $('#inputSource').val(),
     name: "compile"
   }, function(data) {
-    $('#compilationStatus').removeClass('glyphicon-refresh');
     if (data.success) {
       compileSuccess(data.content, download);
     }
@@ -49,10 +53,8 @@ function requestCompilation(download) {
  * @param download Flag requesting to trigger a download of the compiled result
  */
 function compileSuccess(result, download) {
-  $('#compilationStatus').addClass('glyphicon-ok-sign success');
-  $('#compilationStatus').removeClass('glyphicon-remove-circle failure');
-  $('#compileError').text('');
-  $('#errorMessage').hide();
+  $('#compilationSuccess').show();
+  $('#compileFailure').hide();
   if (download) {
     var blob = new Blob([result], {type: "text/javascript;charset=utf-8"});
     saveAs(blob, "compiled.js");
@@ -64,16 +66,40 @@ function compileSuccess(result, download) {
  * @param errorMessage The compilation error.
  */
 function compileFailure(errorMessage) {
-  $('#compilationStatus').removeClass('glyphicon-ok-sign success');
-  $('#compilationStatus').addClass('glyphicon-remove-circle failure');
-  $('#compileError').text(errorMessage);
-  $('#errorMessage').show();
+  $('#compilationSuccess').hide();
+  $('#compileFailure').show();
+  $('#compileFailure').popover({
+    content: errorMessage,
+    placement: 'top',
+    title: 'Compilation failure'
+  });
+}
+
+function toggleFullscreen() {
+  editor.setOption('fullScreen', !editor.getOption('fullScreen'));
 }
 
 /**
  * On document load, initialise handlers.
  */
 $(function(){
+  $('#fsBtn').click(toggleFullscreen);
   $('#compileBtn').click(compile);
   $('#downloadBtn').click(download);
+  editor = CodeMirror.fromTextArea(
+    document.getElementById('inputSource'), {
+      indentWithTabs: false,
+      lineNumbers: true,
+      matchBrackets: true,
+      autoCloseTags: true,
+      matchTags: true,
+      mode: 'text/x-soy',
+      tabSize: 2,
+      extraKeys: {
+        "Ctrl-Space": "autocomplete",
+        "Ctrl-Enter": function(cm) {
+          cm.setOption('fullScreen', !cm.getOption('fullScreen'));
+        },
+      }
+  });
 })
