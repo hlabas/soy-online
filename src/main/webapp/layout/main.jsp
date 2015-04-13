@@ -31,7 +31,7 @@
 	  bottom: 0;
 	  width: 100%;
 	  /* Set the fixed height of the footer here */
-	  height: 60px;
+	  height: 34px;
 	  background-color: #f5f5f5;
 	  padding: 10px 10px 10px 30px;
 	}
@@ -62,11 +62,10 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
           <li><a href="#aboutModal" data-toggle="modal">About</a></li>
         </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a class="label-danger" href="https://github.com/hlabas/soy-online.git" style="color: white;">Fork on Github</a></li>
+	        <s:layout-component name="navright" />
 	      </ul>
       </div>
     </div>
@@ -81,6 +80,7 @@
   <s:layout-component name="body" />
 
   <footer class="footer">
+    <a class="label label-danger pull-right" href="https://github.com/hlabas/soy-online.git" style="color: white;">Fork on Github</a>
     <s:layout-component name="footer" />
   </footer>
   
@@ -100,6 +100,7 @@
       </div>
     </div>
   </div>
+  <s:layout-component name="bottom" />
   <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script

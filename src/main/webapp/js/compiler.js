@@ -31,12 +31,16 @@ function download(e) {
  * @param download Flag to request downloading the result.
  */
 function requestCompilation(download) {
+  $('#compileBtn').button('loading');
   $('#compileSuccess').hide();
   $('#compileFailure').hide();
+  $()
+  editor.save();
   $.post(BASE_PATH + 'compile/verify', {
     inputSource: $('#inputSource').val(),
     name: "compile"
   }, function(data) {
+    $('#compileBtn').button('reset');
     if (data.success) {
       compileSuccess(data.content, download);
     }
@@ -54,7 +58,6 @@ function requestCompilation(download) {
  */
 function compileSuccess(result, download) {
   $('#compilationSuccess').show();
-  $('#compileFailure').hide();
   if (download) {
     var blob = new Blob([result], {type: "text/javascript;charset=utf-8"});
     saveAs(blob, "compiled.js");
@@ -66,13 +69,9 @@ function compileSuccess(result, download) {
  * @param errorMessage The compilation error.
  */
 function compileFailure(errorMessage) {
-  $('#compilationSuccess').hide();
   $('#compileFailure').show();
-  $('#compileFailure').popover({
-    content: errorMessage,
-    placement: 'top',
-    title: 'Compilation failure'
-  });
+  $('#compilationMessage').text(errorMessage);
+  $('#compileErrorModal').modal('show');
 }
 
 function toggleFullscreen() {
@@ -94,6 +93,7 @@ $(function(){
       autoCloseTags: true,
       matchTags: true,
       mode: 'text/x-soy',
+      viewportMargin: Infinity,
       tabSize: 2,
       extraKeys: {
         "Ctrl-Space": "autocomplete",
